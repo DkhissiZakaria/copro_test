@@ -9,6 +9,7 @@ import com.app.copro.service.SyndicFileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,47 @@ public class SyndicController {
     @PostMapping
     public ResponseEntity<SyndicResponseDto> createSyndic(@Valid @RequestBody CreateSyndicDto createSyndicDto) {
         SyndicResponseDto response = syndicService.createSyndic(createSyndicDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @PostMapping(value = "/with-files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<SyndicResponseDto> createSyndicWithFiles(
+            @RequestPart("syndic") @Valid CreateSyndicDto createSyndicDto,
+            @RequestPart(value = "docCarteProfessionnelle", required = false) MultipartFile docCarteProfessionnelle,
+            @RequestPart(value = "docAssuranceRc", required = false) MultipartFile docAssuranceRc,
+            @RequestPart(value = "docGarantieFinanciere", required = false) MultipartFile docGarantieFinanciere,
+            @RequestPart(value = "docTamponSignature", required = false) MultipartFile docTamponSignature,
+            @RequestPart(value = "logoCoordonnees", required = false) MultipartFile logoCoordonnees,
+            @RequestPart(value = "logoSimple", required = false) MultipartFile logoSimple
+    ) {
+        SyndicResponseDto response = syndicService.createSyndic(createSyndicDto);
+        Long syndicId = response.getId();
+
+        if (docCarteProfessionnelle != null) {
+            String ref = syndicFileService.uploadCarteProfessionnelle(syndicId, docCarteProfessionnelle);
+            response.setDocCarteProfessionnellePath(ref);
+        }
+        if (docAssuranceRc != null) {
+            String ref = syndicFileService.uploadAssuranceRc(syndicId, docAssuranceRc);
+            response.setDocAssuranceRcPath(ref);
+        }
+        if (docGarantieFinanciere != null) {
+            String ref = syndicFileService.uploadGarantieFinanciere(syndicId, docGarantieFinanciere);
+            response.setDocGarantieFinancierePath(ref);
+        }
+        if (docTamponSignature != null) {
+            String ref = syndicFileService.uploadTamponSignature(syndicId, docTamponSignature);
+            response.setDocTamponSignaturePath(ref);
+        }
+        if (logoCoordonnees != null) {
+            String ref = syndicFileService.uploadLogoCoordonnees(syndicId, logoCoordonnees);
+            response.setLogoCoordonneesPath(ref);
+        }
+        if (logoSimple != null) {
+            String ref = syndicFileService.uploadLogoSimple(syndicId, logoSimple);
+            response.setLogoSimplePath(ref);
+        }
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
