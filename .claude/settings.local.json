@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(/C:\\Users\\SURFACE LAPTOP 3\\Desktop\\makeplan\\makeplan-services\\copro\\src\\main\\java\\com\\app\\copro\\model/**)",
+      "Read(/C:\\Users\\SURFACE LAPTOP 3\\Desktop\\makeplan\\makeplan-services\\copro\\src\\main\\java\\com\\app\\copro\\model/**)",
+      "Read(/C:\\Users\\SURFACE LAPTOP 3\\Desktop\\makeplan\\makeplan-services\\copro\\src\\main\\java\\com\\app\\copro\\util/**)",
+      "Read(/C:\\Users\\SURFACE LAPTOP 3\\Desktop\\makeplan\\makeplan-services\\copro\\src\\main\\java\\com\\app\\copro\\model/**)",
+      "Read(/C:\\Users\\SURFACE LAPTOP 3\\Desktop\\makeplan\\makeplan-services\\copro\\src\\main\\java\\com\\app\\copro\\controller/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
