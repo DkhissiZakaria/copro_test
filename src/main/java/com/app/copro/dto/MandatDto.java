@@ -1,62 +1,29 @@
-package com.app.copro.model;
+package com.app.copro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "mandat")
-public class Mandat {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class MandatDto {
     private Long id;
 
-    // N° mandat
-    @Column(nullable = false, length = 120)
+    @NotBlank
     private String numero;
 
-    // Dates
-    @Column(nullable = false)
+    @NotNull
     private LocalDate dateDebut;
 
-    @Column(nullable = false)
+    @NotNull
     private LocalDate dateFin;
 
     private LocalDate dateSignature;
-
-    // Type de mandat (ex: CONTRAT_SYNDIC)
-    @Column(length = 50)
     private String typeMandat;
-
-    // Administrateur provisoire
-    @Column(nullable = false)
-    private Boolean administrateurProvisoire = false;
-
-    // Adresse
-    @Column(length = 180)
+    private Boolean administrateurProvisoire;
     private String adresse;
-
-    @Column(length = 180)
     private String complement;
-
-    @Column(length = 20)
     private String codePostal;
-
-    @Column(length = 120)
     private String ville;
-
-    // Référence vers le fichier du mandat
-    @Column(length = 255)
     private String fichierRef;
-
-    // propriétaire de la relation 1–1
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "syndic_id", unique = true, nullable = false)
-    @JsonIgnore
-    private Syndic syndic;
-
-    // ===== Getters/Setters =====
 
     public Long getId() {
         return id;
@@ -153,12 +120,5 @@ public class Mandat {
     public void setFichierRef(String fichierRef) {
         this.fichierRef = fichierRef;
     }
-
-    public Syndic getSyndic() {
-        return syndic;
-    }
-
-    public void setSyndic(Syndic syndic) {
-        this.syndic = syndic;
-    }
 }
+
