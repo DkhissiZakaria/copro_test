@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SyndicRepository extends JpaRepository<Syndic, Long> {
@@ -21,4 +22,6 @@ public interface SyndicRepository extends JpaRepository<Syndic, Long> {
 
     @Query("SELECT s FROM Syndic s JOIN FETCH s.projet p WHERE p.idMakePlan = :idMakePlan AND s.isActive = true")
     List<Syndic> findActiveSyndicsByProjetIdMakePlan(@Param("idMakePlan") Long idMakePlan);
+
+    Optional<Syndic> findByIsActiveTrue();
 }
