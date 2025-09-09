@@ -3,6 +3,7 @@ package com.app.copro.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,14 @@ public class Carnet {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 150)
-    private String titre;
+    @Version
+    private Long version;
 
-    @Column(length = 5000)
-    private String contenu;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     // ManyToOne vers Syndic (existant)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -39,6 +43,17 @@ public class Carnet {
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TravailImportant> travauxImportants = new ArrayList<>();
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
@@ -47,20 +62,28 @@ public class Carnet {
         this.id = id;
     }
 
-    public String getTitre() {
-        return titre;
+    public Long getVersion() {
+        return version;
     }
 
-    public void setTitre(String titre) {
-        this.titre = titre;
+    public void setVersion(Long version) {
+        this.version = version;
     }
 
-    public String getContenu() {
-        return contenu;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setContenu(String contenu) {
-        this.contenu = contenu;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
     public Syndic getSyndic() {
