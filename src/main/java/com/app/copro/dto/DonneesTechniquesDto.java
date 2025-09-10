@@ -1,15 +1,7 @@
-package com.app.copro.model;
+package com.app.copro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "donnees_techniques")
-public class DonneesTechniques {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DonneesTechniquesDto {
     private Long id;
-
     // Informations générales
     private String periodeConstruction;
     private String anneeConstruction;
@@ -32,12 +24,6 @@ public class DonneesTechniques {
     private Integer nbBatimentEtiquetteEnergieE;
     private Integer nbBatimentEtiquetteEnergieF;
     private Integer nbBatimentEtiquetteEnergieG;
-
-    // propriétaire 1–1
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "carnet_id", unique = true, nullable = false)
-    @JsonIgnore
-    private Carnet carnet;
 
     public Long getId() {
         return id;
@@ -181,14 +167,6 @@ public class DonneesTechniques {
 
     public void setNbBatimentEtiquetteEnergieG(Integer nbBatimentEtiquetteEnergieG) {
         this.nbBatimentEtiquetteEnergieG = nbBatimentEtiquetteEnergieG;
-    }
-
-    public Carnet getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(Carnet carnet) {
-        this.carnet = carnet;
     }
 }
 
