@@ -36,6 +36,14 @@ public class CarnetService {
                 .orElseThrow(() -> new RuntimeException("Aucun carnet pour le syndic actif"));
     }
 
+    public Long getFirstCarnetIdForActiveSyndicByIdMakePlan(Long idMakePlan) {
+        return carnetRepository
+                .findFirstBySyndic_Projet_IdMakePlanAndSyndic_IsActiveTrueOrderByIdAsc(idMakePlan)
+                .map(Carnet::getId)
+                .orElseThrow(() -> new RuntimeException(
+                        "Aucun carnet trouvé pour le syndic actif du projet idMakePlan: " + idMakePlan));
+    }
+
     public Carnet updateCarnet(Long id, Carnet updatedCarnet) {
         Carnet existing = carnetRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Carnet non trouvé"));

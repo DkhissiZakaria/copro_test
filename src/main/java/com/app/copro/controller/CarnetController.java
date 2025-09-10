@@ -37,6 +37,12 @@ public class CarnetController {
         return ResponseEntity.ok(carnet);
     }
 
+    @GetMapping("/first-active-id/by-makeplan/{idMakePlan}")
+    public ResponseEntity<Long> getFirstCarnetIdForActiveSyndic(@PathVariable Long idMakePlan) {
+        Long carnetId = carnetService.getFirstCarnetIdForActiveSyndicByIdMakePlan(idMakePlan);
+        return ResponseEntity.ok(carnetId);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Carnet> updateCarnet(@PathVariable Long id, @RequestBody Carnet updatedCarnet) {
         Carnet carnet = carnetService.updateCarnet(id, updatedCarnet);
