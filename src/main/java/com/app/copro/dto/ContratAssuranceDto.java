@@ -1,74 +1,26 @@
-package com.app.copro.model;
+package com.app.copro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-
+import jakarta.validation.constraints.NotBlank;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "contrat_assurance")
-public class ContratAssurance {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContratAssuranceDto {
     private Long id;
 
-    /**
-     * Type de contrat (ex. Multirisque)
-     */
-    @Column(nullable = false)
+    @NotBlank
     private String contrat;
 
-    /**
-     * Assureur sélectionné
-     */
-    @Column(nullable = false)
+    @NotBlank
     private String assureur;
 
-    /**
-     * Compagnie d'assurance (ex. Otis)
-     */
-    @Column(nullable = false)
+    @NotBlank
     private String compagnie;
 
-    /**
-     * Numéro de contrat
-     */
     private String numeroContrat;
-
-    /**
-     * Numéro de police
-     */
     private String numeroPolice;
-
-    /**
-     * Date d'effet du contrat
-     */
     private LocalDate dateEffet;
-
-    /**
-     * Date de fin du contrat
-     */
     private LocalDate dateFin;
-
-    /**
-     * Prime d'assurance
-     */
     private Double prime;
-
-    /**
-     * Référence vers le fichier associé (upload)
-     */
-    @Column(length = 255)
     private String fichierRef;
-
-    // Relation N–1 vers Carnet (côté propriétaire)
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "carnet_id")
-    @JsonIgnore
-    private Carnet carnet;
-
-    // ===== Getters/Setters =====
 
     public Long getId() {
         return id;
@@ -148,14 +100,6 @@ public class ContratAssurance {
 
     public void setFichierRef(String fichierRef) {
         this.fichierRef = fichierRef;
-    }
-
-    public Carnet getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(Carnet carnet) {
-        this.carnet = carnet;
     }
 }
 

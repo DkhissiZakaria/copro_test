@@ -10,6 +10,7 @@ public final class FileConstants {
         public static final String MANDAT = "MANDAT";
         public static final String CARNET = "CARNET";
         public static final String PROJET = "PROJET";
+        public static final String CONTRAT_ASSURANCE = "CONTRAT_ASSURANCE";
     }
 
     public static final class SyndicCategories {
