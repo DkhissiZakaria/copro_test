@@ -64,6 +64,18 @@ public class ContratAssuranceController {
         return ResponseEntity.ok(updated);
     }
 
+    @PutMapping(value = "/contrats-assurance/{id}/with-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ContratAssuranceDto> updateWithFile(@PathVariable Long id,
+                                                              @RequestPart("contrat") @Valid ContratAssuranceDto dto,
+                                                              @RequestPart(value = "file", required = false) MultipartFile file) {
+        ContratAssuranceDto updated = service.update(id, dto);
+        if (file != null && !file.isEmpty()) {
+            String ref = fileService.uploadFile(updated.getId(), file);
+            updated.setFichierRef(ref);
+        }
+        return ResponseEntity.ok(updated);
+    }
+
     @DeleteMapping("/contrats-assurance/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
