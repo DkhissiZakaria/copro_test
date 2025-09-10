@@ -1,13 +1,8 @@
-package com.app.copro.model;
+package com.app.copro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
-@Entity @Table(name = "donnees_administratives")
-public class DonneesAdministratives {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DonneesAdministrativesDto {
     private Long id;
 
     // Adresse principale
@@ -42,12 +37,6 @@ public class DonneesAdministratives {
     private Integer nbASL;
     private Integer nbAFUL;
     private Integer nbUnionSyndical;
-
-    // propriétaire de la relation 1–1 (clé unique)
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "carnet_id", unique = true, nullable = false)
-    @JsonIgnore
-    private Carnet carnet;
 
     public Long getId() {
         return id;
@@ -255,13 +244,5 @@ public class DonneesAdministratives {
 
     public void setNbUnionSyndical(Integer nbUnionSyndical) {
         this.nbUnionSyndical = nbUnionSyndical;
-    }
-
-    public Carnet getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(Carnet carnet) {
-        this.carnet = carnet;
     }
 }
