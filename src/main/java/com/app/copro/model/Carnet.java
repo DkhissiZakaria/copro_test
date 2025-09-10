@@ -43,6 +43,10 @@ public class Carnet {
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TravailImportant> travauxImportants = new ArrayList<>();
 
+    // 1–N Diagnostics collectifs (FK côté DiagnosticCollectif)
+    @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DiagnosticCollectif> diagnosticsCollectifs = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -124,5 +128,13 @@ public class Carnet {
 
     public void setTravauxImportants(List<TravailImportant> travauxImportants) {
         this.travauxImportants = travauxImportants;
+    }
+
+    public List<DiagnosticCollectif> getDiagnosticsCollectifs() {
+        return diagnosticsCollectifs;
+    }
+
+    public void setDiagnosticsCollectifs(List<DiagnosticCollectif> diagnosticsCollectifs) {
+        this.diagnosticsCollectifs = diagnosticsCollectifs;
     }
 }
