@@ -59,6 +59,18 @@ public class MandatController {
         return ResponseEntity.ok(updated);
     }
 
+    @PutMapping(value = "/with-file", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<MandatDto> updateMandatWithFile(@PathVariable Long syndicId,
+                                                          @RequestPart("mandat") @Valid MandatDto mandatDto,
+                                                          @RequestPart(value = "file", required = false) MultipartFile file) {
+        MandatDto updated = mandatService.updateMandat(syndicId, mandatDto);
+        if (file != null && !file.isEmpty()) {
+            String ref = mandatFileService.uploadMandatFile(syndicId, file);
+            updated.setFichierRef(ref);
+        }
+        return ResponseEntity.ok(updated);
+    }
+
     @PostMapping("/file")
     public ResponseEntity<String> uploadMandatFile(@PathVariable Long syndicId,
                                                    @RequestParam("file") MultipartFile file) {

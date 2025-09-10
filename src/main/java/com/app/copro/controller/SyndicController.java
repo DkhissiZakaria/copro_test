@@ -89,6 +89,47 @@ public class SyndicController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping(value = "/{id}/with-files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<SyndicResponseDto> updateSyndicWithFiles(
+            @PathVariable Long id,
+            @RequestPart("syndic") @Valid UpdateSyndicDto updateSyndicDto,
+            @RequestPart(value = "docCarteProfessionnelle", required = false) MultipartFile docCarteProfessionnelle,
+            @RequestPart(value = "docAssuranceRc", required = false) MultipartFile docAssuranceRc,
+            @RequestPart(value = "docGarantieFinanciere", required = false) MultipartFile docGarantieFinanciere,
+            @RequestPart(value = "docTamponSignature", required = false) MultipartFile docTamponSignature,
+            @RequestPart(value = "logoCoordonnees", required = false) MultipartFile logoCoordonnees,
+            @RequestPart(value = "logoSimple", required = false) MultipartFile logoSimple
+    ) {
+        SyndicResponseDto response = syndicService.updateSyndic(id, updateSyndicDto);
+
+        if (docCarteProfessionnelle != null) {
+            String ref = syndicFileService.uploadCarteProfessionnelle(id, docCarteProfessionnelle);
+            response.setDocCarteProfessionnellePath(ref);
+        }
+        if (docAssuranceRc != null) {
+            String ref = syndicFileService.uploadAssuranceRc(id, docAssuranceRc);
+            response.setDocAssuranceRcPath(ref);
+        }
+        if (docGarantieFinanciere != null) {
+            String ref = syndicFileService.uploadGarantieFinanciere(id, docGarantieFinanciere);
+            response.setDocGarantieFinancierePath(ref);
+        }
+        if (docTamponSignature != null) {
+            String ref = syndicFileService.uploadTamponSignature(id, docTamponSignature);
+            response.setDocTamponSignaturePath(ref);
+        }
+        if (logoCoordonnees != null) {
+            String ref = syndicFileService.uploadLogoCoordonnees(id, logoCoordonnees);
+            response.setLogoCoordonneesPath(ref);
+        }
+        if (logoSimple != null) {
+            String ref = syndicFileService.uploadLogoSimple(id, logoSimple);
+            response.setLogoSimplePath(ref);
+        }
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/by-makeplan/{idMakePlan}")
     public ResponseEntity<List<SyndicResponseDto>> getSyndicsByIdMakePlan(@PathVariable Long idMakePlan) {
         try {
