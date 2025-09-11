@@ -42,6 +42,14 @@ public class Equipement {
     @OneToMany(mappedBy = "equipement", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContratMaintenance> contratsMaintenance = new ArrayList<>();
 
+    // 1-N Interventions
+    @OneToMany(mappedBy = "equipement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Intervention> interventions = new ArrayList<>();
+
+    // 1-N Travaux de réparation et de remplacement
+    @OneToMany(mappedBy = "equipement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TravauxReparation> travauxReparations = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -144,6 +152,22 @@ public class Equipement {
 
     public void setContratsMaintenance(List<ContratMaintenance> contratsMaintenance) {
         this.contratsMaintenance = contratsMaintenance;
+    }
+
+    public List<Intervention> getInterventions() {
+        return interventions;
+    }
+
+    public void setInterventions(List<Intervention> interventions) {
+        this.interventions = interventions;
+    }
+
+    public List<TravauxReparation> getTravauxReparations() {
+        return travauxReparations;
+    }
+
+    public void setTravauxReparations(List<TravauxReparation> travauxReparations) {
+        this.travauxReparations = travauxReparations;
     }
 }
 
