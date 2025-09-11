@@ -1,64 +1,37 @@
-package com.app.copro.model;
+package com.app.copro.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
 
 /**
- * Entité représentant un travail important réalisé dans la copropriété.
+ * DTO pour l'entité {@code TravailImportant}.
  */
-@Entity
-@Table(name = "travail_important")
-public class TravailImportant {
+public class TravailImportantDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    /** Nom des travaux. */
-    @Column(nullable = false)
+    @NotBlank
     private String nomTravaux;
 
-    /** Date de début. */
-    @Column(nullable = false)
+    @NotNull
     private LocalDate dateDebut;
 
-    /** Date de fin. */
-    @Column(nullable = false)
+    @NotNull
     private LocalDate dateFin;
 
-    /** Assemblée générale concernée. */
     private String assembleeGenerale;
-
-    /** Clé de charges. */
     private String cleCharges;
-
-    /** Montant total des travaux. */
     private Double montantTravaux;
-
-    /** Nombre d'échéances de paiement. */
     private Integer nombreEcheances;
 
-    /** Détail des travaux. */
-    @Column(length = 3000, nullable = false)
+    @NotBlank
     private String details;
 
-    /** Références vers les images associées. */
-    @Column(length = 255)
     private String image1Ref;
-
-    @Column(length = 255)
     private String image2Ref;
-
-    @Column(length = 255)
     private String image3Ref;
-
-    // N–1 vers Carnet
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "carnet_id")
-    @JsonIgnore
-    private Carnet carnet;
 
     // ===== Getters / Setters =====
 
@@ -156,14 +129,6 @@ public class TravailImportant {
 
     public void setImage3Ref(String image3Ref) {
         this.image3Ref = image3Ref;
-    }
-
-    public Carnet getCarnet() {
-        return carnet;
-    }
-
-    public void setCarnet(Carnet carnet) {
-        this.carnet = carnet;
     }
 }
 
