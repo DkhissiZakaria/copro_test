@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "equipement")
@@ -35,6 +37,10 @@ public class Equipement {
     @JoinColumn(name = "chapitre_id")
     @JsonIgnore
     private Chapitre chapitre;
+
+    // 1-N Contrats de maintenance (FK côté ContratMaintenance)
+    @OneToMany(mappedBy = "equipement", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContratMaintenance> contratsMaintenance = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -130,6 +136,14 @@ public class Equipement {
 
     public void setChapitre(Chapitre chapitre) {
         this.chapitre = chapitre;
+    }
+
+    public List<ContratMaintenance> getContratsMaintenance() {
+        return contratsMaintenance;
+    }
+
+    public void setContratsMaintenance(List<ContratMaintenance> contratsMaintenance) {
+        this.contratsMaintenance = contratsMaintenance;
     }
 }
 
