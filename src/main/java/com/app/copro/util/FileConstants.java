@@ -16,6 +16,8 @@ public final class FileConstants {
         public static final String PROCEDURE_ADMINISTRATIVE = "PROCEDURE_ADMINISTRATIVE";
         public static final String PPT = "PPT";
         public static final String CONTRAT_MAINTENANCE = "CONTRAT_MAINTENANCE";
+        public static final String INTERVENTION = "INTERVENTION";
+        public static final String TRAVAUX_REPARATION = "TRAVAUX_REPARATION";
     }
 
     public static final class SyndicCategories {
