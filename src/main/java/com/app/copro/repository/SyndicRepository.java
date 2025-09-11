@@ -24,4 +24,5 @@ public interface SyndicRepository extends JpaRepository<Syndic, Long> {
     List<Syndic> findActiveSyndicsByProjetIdMakePlan(@Param("idMakePlan") Long idMakePlan);
 
     Optional<Syndic> findByIsActiveTrue();
+    Optional<Syndic> findByProjet_IdAndIsActiveTrue(Long projetId);
 }
