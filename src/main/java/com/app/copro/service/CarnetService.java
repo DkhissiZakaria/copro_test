@@ -19,11 +19,11 @@ public class CarnetService {
         this.syndicRepository = syndicRepository;
     }
 
-    public Carnet createCarnet(Long projetId) {
-        Syndic activeSyndic = syndicRepository.findByProjet_IdAndIsActiveTrue(projetId)
+    public Carnet createCarnet(Long idMakePlan) {
+        Syndic activeSyndic = syndicRepository.findByProjet_IdMakePlanAndIsActiveTrue(idMakePlan)
                 .orElseThrow(() -> new RuntimeException("Aucun syndic actif trouvé pour ce projet"));
         long nextVersion = carnetRepository
-                .findTopBySyndic_Projet_IdOrderByVersionDesc(projetId)
+                .findTopBySyndic_Projet_IdMakePlanOrderByVersionDesc(idMakePlan)
                 .map(c -> c.getVersion() + 1)
                 .orElse(1L);
         Carnet carnet = new Carnet();

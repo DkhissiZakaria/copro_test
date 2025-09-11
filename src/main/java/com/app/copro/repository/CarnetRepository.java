@@ -12,5 +12,5 @@ public interface CarnetRepository extends JpaRepository<Carnet, Long> {
     List<Carnet> findBySyndic_Projet_IdMakePlan(Long idMakePlan);
     Optional<Carnet> findBySyndic_IsActiveTrue();
     Optional<Carnet> findFirstBySyndic_Projet_IdMakePlanAndSyndic_IsActiveTrueOrderByIdAsc(Long idMakePlan);
-    Optional<Carnet> findTopBySyndic_Projet_IdOrderByVersionDesc(Long projetId);
+    Optional<Carnet> findTopBySyndic_Projet_IdMakePlanOrderByVersionDesc(Long idMakePlan);
 }

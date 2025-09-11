@@ -19,9 +19,9 @@ public class CarnetController {
         this.carnetService = carnetService;
     }
 
-    @PostMapping("/projet/{projetId}")
-    public ResponseEntity<Carnet> createCarnet(@PathVariable Long projetId) {
-        Carnet carnet = carnetService.createCarnet(projetId);
+    @PostMapping("/projet/{idMakePlan}")
+    public ResponseEntity<Carnet> createCarnet(@PathVariable Long idMakePlan) {
+        Carnet carnet = carnetService.createCarnet(idMakePlan);
         return new ResponseEntity<>(carnet, HttpStatus.CREATED);
     }
 
