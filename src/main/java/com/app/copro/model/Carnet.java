@@ -35,6 +35,10 @@ public class Carnet {
     @OneToOne(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private DonneesTechniques donneesTechniques;
 
+    // 1–1 Plan Pluriannuel de Travaux (PPT) (FK côté Ppt)
+    @OneToOne(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Ppt ppt;
+
     // 1–N Contrats d'assurance (FK côté ContratAssurance)
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContratAssurance> contrats = new ArrayList<>();
@@ -112,6 +116,14 @@ public class Carnet {
 
     public void setDonneesTechniques(DonneesTechniques donneesTechniques) {
         this.donneesTechniques = donneesTechniques;
+    }
+
+    public Ppt getPpt() {
+        return ppt;
+    }
+
+    public void setPpt(Ppt ppt) {
+        this.ppt = ppt;
     }
 
     public List<ContratAssurance> getContrats() {
