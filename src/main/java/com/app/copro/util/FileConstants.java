@@ -13,6 +13,7 @@ public final class FileConstants {
         public static final String CONTRAT_ASSURANCE = "CONTRAT_ASSURANCE";
         public static final String DIAGNOSTIC_COLLECTIF = "DIAGNOSTIC_COLLECTIF";
         public static final String TRAVAIL_IMPORTANT = "TRAVAIL_IMPORTANT";
+        public static final String PROCEDURE_ADMINISTRATIVE = "PROCEDURE_ADMINISTRATIVE";
         public static final String PPT = "PPT";
     }
 
