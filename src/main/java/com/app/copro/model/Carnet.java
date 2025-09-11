@@ -59,6 +59,10 @@ public class Carnet {
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DiagnosticCollectif> diagnosticsCollectifs = new ArrayList<>();
 
+    // 1–N Chapitres (FK côté Chapitre)
+    @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Chapitre> chapitres = new ArrayList<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -172,5 +176,13 @@ public class Carnet {
 
     public void setDiagnosticsCollectifs(List<DiagnosticCollectif> diagnosticsCollectifs) {
         this.diagnosticsCollectifs = diagnosticsCollectifs;
+    }
+
+    public List<Chapitre> getChapitres() {
+        return chapitres;
+    }
+
+    public void setChapitres(List<Chapitre> chapitres) {
+        this.chapitres = chapitres;
     }
 }
