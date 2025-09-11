@@ -19,11 +19,16 @@ public class CarnetService {
         this.syndicRepository = syndicRepository;
     }
 
-    public Carnet createCarnet() {
-        Syndic activeSyndic = syndicRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new RuntimeException("Aucun syndic actif trouvé"));
+    public Carnet createCarnet(Long idMakePlan) {
+        Syndic activeSyndic = syndicRepository.findByProjet_IdMakePlanAndIsActiveTrue(idMakePlan)
+                .orElseThrow(() -> new RuntimeException("Aucun syndic actif trouvé pour ce projet"));
+        long nextVersion = carnetRepository
+                .findTopBySyndic_Projet_IdMakePlanOrderByVersionDesc(idMakePlan)
+                .map(c -> c.getVersion() + 1)
+                .orElse(1L);
         Carnet carnet = new Carnet();
         carnet.setSyndic(activeSyndic);
+        carnet.setVersion(nextVersion);
         return carnetRepository.save(carnet);
     }
 
