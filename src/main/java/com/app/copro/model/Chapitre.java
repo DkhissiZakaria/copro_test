@@ -3,6 +3,9 @@ package com.app.copro.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "chapitre")
 public class Chapitre {
@@ -22,6 +25,9 @@ public class Chapitre {
     @JoinColumn(name = "carnet_id")
     @JsonIgnore
     private Carnet carnet;
+
+    @OneToMany(mappedBy = "chapitre", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Equipement> equipements = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -61,6 +67,14 @@ public class Chapitre {
 
     public void setCarnet(Carnet carnet) {
         this.carnet = carnet;
+    }
+
+    public List<Equipement> getEquipements() {
+        return equipements;
+    }
+
+    public void setEquipements(List<Equipement> equipements) {
+        this.equipements = equipements;
     }
 }
 
