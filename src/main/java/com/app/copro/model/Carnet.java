@@ -43,6 +43,14 @@ public class Carnet {
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ContratAssurance> contrats = new ArrayList<>();
 
+    // 1–N Contrats dommages-ouvrage (FK côté ContratDommageOuvrage)
+    @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ContratDommageOuvrage> contratsDommageOuvrage = new ArrayList<>();
+
+    // 1–N Procédures administratives (FK côté ProcedureAdministrative)
+    @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProcedureAdministrative> proceduresAdministratives = new ArrayList<>();
+
     // 1–N Travaux importants (FK côté TravailImportant)
     @OneToMany(mappedBy = "carnet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TravailImportant> travauxImportants = new ArrayList<>();
@@ -132,6 +140,22 @@ public class Carnet {
 
     public void setContrats(List<ContratAssurance> contrats) {
         this.contrats = contrats;
+    }
+
+    public List<ContratDommageOuvrage> getContratsDommageOuvrage() {
+        return contratsDommageOuvrage;
+    }
+
+    public void setContratsDommageOuvrage(List<ContratDommageOuvrage> contratsDommageOuvrage) {
+        this.contratsDommageOuvrage = contratsDommageOuvrage;
+    }
+
+    public List<ProcedureAdministrative> getProceduresAdministratives() {
+        return proceduresAdministratives;
+    }
+
+    public void setProceduresAdministratives(List<ProcedureAdministrative> proceduresAdministratives) {
+        this.proceduresAdministratives = proceduresAdministratives;
     }
 
     public List<TravailImportant> getTravauxImportants() {
